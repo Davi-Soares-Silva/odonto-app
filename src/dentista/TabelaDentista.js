@@ -22,14 +22,24 @@ const TableBody = (props) => {
         <td>{dentista.nome}</td>
         <td>{dentista.telefone}</td>
         <td>
-          <button className="btn btn-warning btn-small">
+          <button 
+            className="btn btn-warning btn-small"
+            onClick={()=>{
+              props.consultarDentista(dentista.codigo)
+            }}
+          >
             <i className="fas fa-pencil-alt"></i>
           </button>
         </td>
         <td>
-          <button 
+          <button
             className="btn btn-danger btn-small"
-            onClick={()=> props.excluirDentista(dentista.codigo)}
+            onClick={() => {
+              if (window.confirm("Confirma a exclusão")) {
+                props.excluirDentista(dentista.codigo)
+              }
+            }
+            }
           >
             <i className="fas fa-trash"></i>
           </button>
@@ -52,6 +62,7 @@ class TabelaDentista extends Component {
 
     const { dentistas } = this.props;
     const { excluirDentista } = this.props;
+    const { consultarDentista } = this.props;
 
     return (
       <div className="card">
@@ -62,9 +73,10 @@ class TabelaDentista extends Component {
         <div className="card-body">
           <table className="table table-hover">
             <TableHead />
-            <TableBody 
-              dentistas={dentistas} 
-              excluirDentista = {excluirDentista}  
+            <TableBody
+              dentistas={dentistas}
+              excluirDentista={excluirDentista}
+              consultarDentista={consultarDentista}
             />
           </table>
         </div>
